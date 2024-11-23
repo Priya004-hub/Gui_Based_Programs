@@ -1,5 +1,171 @@
-AWT USING GUI LIBRARY 
-Why Use AWT Today?
-Legacy Code: Many older Java applications were built using AWT. You may encounter AWT when working with legacy systems.
-Learning: AWT helps developers understand the core concepts of GUI programming and event handling, which are still applicable to modern toolkits like Swing and JavaFX.
-Simple Applications: AWT is suitable for simple, lightweight applications where a consistent look and feel across platforms is not a priority.
+// AWT USING GUI LIBRARY 
+import java.awt. *;
+import java.awt.event.*;
+import java.io.FileWriter;
+public class Awt{
+    public static void main(String[] args){
+        Frame frame=new Frame("Application Form");
+        frame.setSize(1000,1500);
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(null);
+
+        Label label=new Label("                                      Applicant Details                   ");
+        label.setBounds(10,30,1000,50);
+        label.setFont(new Font(null,Font.BOLD,35));
+        label.setBackground(Color.black);
+        label.setForeground(Color.white);
+        frame.add(label);
+
+        Label label2=new Label("Name ");
+        label2.setBounds(50,100,100,50);
+        label2.setFont(new Font(null,Font.BOLD,25));
+        frame.add(label2);
+
+        TextField nametext=new TextField();
+        nametext.setBounds(220,110,700,40);
+        nametext.setFont(new Font(null,Font.BOLD,25));
+        frame.add(nametext);
+
+        Label label3=new Label("Email");
+        label3.setBounds(50,180,80,100);
+        label3.setFont(new Font(null,Font.BOLD,25));
+        frame.add(label3);
+
+          
+        TextField emailtext=new TextField();
+        emailtext.setBounds(220,210,700,40);
+        emailtext.setFont(new Font(null,Font.BOLD,25));
+        frame.add(emailtext);
+
+
+        Label label4=new Label("Password");
+        label4.setBounds(50,250,150,150);
+        label4.setFont(new Font(null,Font.BOLD,25));
+        frame.add(label4);
+
+        TextField pintext=new TextField();
+        pintext.setBounds(220,300,700,40);
+        pintext.setFont(new Font(null,Font.BOLD,25));
+        frame.add(pintext);
+
+
+         Label label5=new Label("Gender ");
+        label5.setBounds(50,400,150,50);
+        label5.setFont(new Font(null,Font.BOLD,25));
+        frame.add(label5);
+        // check for the gender details
+        CheckboxGroup gender=new CheckboxGroup();
+        Checkbox malecheckbox=new Checkbox("Male");
+        malecheckbox.setFont(new Font(null,Font.BOLD,25));
+        malecheckbox.setBounds(220,350,100,150);
+        malecheckbox.setCheckboxGroup(gender);
+        frame.add(malecheckbox);
+        frame.setLayout(null);
+
+        Checkbox femalecheckbox=new Checkbox("Female");
+        femalecheckbox.setFont(new Font(null,Font.BOLD,25));
+        femalecheckbox.setBounds(480,350,100,150);
+        femalecheckbox.setCheckboxGroup(gender);
+        frame.add(femalecheckbox);
+       
+
+
+        Label label6=new Label("Education ");
+        label6.setBounds(50,450,150,150);
+        label6.setFont(new Font(null,Font.BOLD,25));
+        frame.add(label6);
+
+         //check box for the education details
+         Checkbox box1=new Checkbox("10th");
+         box1.setFont(new Font(null,Font.BOLD,25));
+         box1.setBounds(220,450,100,150);
+        frame.setLayout(null);
+         frame.add(box1);
+         Checkbox box2=new Checkbox("11th");
+         box2.setFont(new Font(null,Font.BOLD,25));
+         box2.setBounds(320,450,100,150);
+         frame.setLayout(null);
+         frame.add(box2);
+          Checkbox box3=new Checkbox("12th");
+         box3.setFont(new Font(null,Font.BOLD,25));
+         box3.setBounds(420,450,100,150);
+         frame.add(box3);
+         frame.setLayout(null);
+ 
+
+        Label label7=new Label("Course ");
+        label7.setBounds(50,550,150,200);
+        label7.setFont(new Font(null,Font.BOLD,25));
+        frame.add(label7);
+
+        // choice for the course
+        Choice choice=new Choice();
+        choice.setBounds(220,630,700,700);
+        choice.setFont(new Font(null,Font.BOLD,25));
+        choice.add("HTML");
+        choice.add("CSS");
+        choice.add("JAVA");
+        choice.add("C & C++");
+        choice.add("ADML");
+        choice.add("EMPEDDED SOFTWARE");
+        choice.add("ARTIFICAL INTELLENGE");
+        choice.add("DATA SCIENCE AND MECHINE LEARNING");
+        choice.add("COMPUTER AUTOMATION");
+        choice.add("ELECTRONIC DEVICE");
+        frame.add(choice);
+         
+        //Button 
+       Button button=new Button("SAVE");
+        button.setBounds(200,700,600,50);
+        button.setFont(new Font(null,Font.BOLD,40));
+        button.setBackground(Color.black);
+        button.setForeground(Color.white);
+        frame.add(button); 
+        frame.setLayout(null);
+        frame.setBackground(Color.GRAY);
+
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {  // Corrected method signature
+                String name = nametext.getText();
+                String email = emailtext.getText();
+                String pin = pintext.getText();
+                String gender = null;
+                String education = "";
+                String course = choice.getSelectedItem();
+        
+                // Check gender selection
+                if (malecheckbox.getState()) {
+                    gender = "MALE";  // Gender as "M"
+                }
+                if (femalecheckbox.getState()) {
+                    gender = "FEMALE";  // Gender as "F"
+                }
+        
+                // Check education selection
+                if (box1.getState()) {
+                    education += "10th ";
+                }
+                if (box2.getState()) {
+                    education += "11th ";
+                }
+                if (box3.getState()) {
+                    education += "12th ";
+                }
+        
+                // Form data concatenation
+                String formData = name + "," + email + "," + pin + "," + gender + "," + education + "," + course;
+                
+                try {
+                    // Using FileWriter with append mode
+                    FileWriter fw = new FileWriter("./UsersRecord.csv", true);
+                    fw.write(formData + "\n");  // Append form data to the CSV
+                    fw.close();
+                } catch (Exception err) {
+                    System.out.println("Error writing to file: " + err);
+                }
+            }
+        });
+        frame.setVisible(true);
+    }
+}
