@@ -1,1 +1,5 @@
 AWT USING GUI LIBRARY 
+Why Use AWT Today?
+Legacy Code: Many older Java applications were built using AWT. You may encounter AWT when working with legacy systems.
+Learning: AWT helps developers understand the core concepts of GUI programming and event handling, which are still applicable to modern toolkits like Swing and JavaFX.
+Simple Applications: AWT is suitable for simple, lightweight applications where a consistent look and feel across platforms is not a priority.
